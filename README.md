@@ -1,2 +1,2 @@
 # LesMarsoinsFantastiques
-Interpréteur de commande
+Interpréteur de commande avec Marine Florian et Laurine
