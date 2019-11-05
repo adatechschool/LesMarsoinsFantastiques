@@ -270,6 +270,7 @@ def combat(heros, monstre)
 		monstre.drop(heros)
 	elsif current_pv_heros <= 0
 		sleep(0.5)
+
 		puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité".red.bold
 	end
 end
