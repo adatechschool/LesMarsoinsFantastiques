@@ -59,7 +59,7 @@ class Personnage
 			@pv_perso = 0
 		end
 		sleep(0.5)
-		puts "violent le bougre... #{degats} pv en moins et un t shirt ruiné".red
+		puts "Violent le bougre... #{degats} pv en moins et un t shirt ruiné".red
 	end
 
 	def getpv
@@ -98,8 +98,13 @@ class Personnage
 				@pv_perso = @pv_perso/2
 				@attaque_perso = @attaque_perso*2
 				@defense_perso = @defense_perso*2
+			else
+				@pv_perso = @pv_perso / 2
+				@attaque_perso = @attaque_perso / 2
+				@defense_perso = @defense_perso / 2
 		end
-		puts "Un exellent choix, vos stats augmentées sont les suivantes : #{@pv_perso} pv, #{@attaque_perso} attaque et #{@defense_perso} defense, vous êtes prêt pour l'aventure !"
+		puts "Un excellent choix ! Vos stats sont maintenant les suivantes : #{@pv_perso} pv, #{@attaque_perso} attaque et #{@defense_perso} defense, vous êtes prêt pour l'aventure !"
+
 		sleep(2.5)
 	end
 
@@ -167,7 +172,7 @@ class Monster
 	def drop(cible)
 		random = rand(1..2)
 		if random == 1
-			puts "les poches du monstre sont vides"
+			puts "Les poches du monstre sont vides"
 		else
 			cible.loot
 		end
@@ -252,7 +257,7 @@ def combat(heros, monstre)
 
 		puts "Il vous reste" + " #{current_pv_heros}".green + " points de vie" + ", le monstre en a " + "#{current_pv_monster}".green
 		sleep(0.5)
-		if current_pv_monster > 0
+		if current_pv_monster > 0 && current_pv_heros > 0
 			puts "Le combat continue !"
 		end
 		sleep(0.5)
@@ -278,7 +283,7 @@ puts "#{blaze.upcase} ? " "Un vrai nom de guerrier.re ! J'en frissone. Prêt.e p
 answer = gets.chomp
 
 if answer == "no" || answer == "non"
-	puts "trop tard, il fallait y penser avant..."
+	puts "Trop tard, il fallait y penser avant..."
 end
 sleep(1)
 puts "En avant " + "#{blaze}".yellow + " , que la force d'Ada soit avec toi !"
