@@ -3,31 +3,27 @@ require 'colorize'
 class Personnage
 
 	def initialize(pv, attaque, defense)
-
-	@pv_perso = pv
-	@attaque_perso = attaque
-	@defense_perso = defense
-
+		@pv_perso = pv
+		@attaque_perso = attaque
+		@defense_perso = defense
 	end
 
-	def pif(cible)
+	def paf(cible)
 		cible.blessure(@attaque_perso)
 	end
 
 	def bloc
-		@defense_perso = @defense_perso*2
+		@defense_perso = @defense_perso * 2
 		sleep(0.5)
 		puts "Vous vous réfugiez courageusement derrière votre bouclier..."
 	end
+
 	def reset_defense(defense)
-
-	@defense_perso = defense
-
+		@defense_perso = defense
 	end
 
 	def super(cible)
-
-	i = rand(2)
+		i = rand(2)
 		if(i == 1)
 		sleep(0.5)
 			puts "Raté. Vous êtes bourré ou quoi ?".yellow
@@ -131,7 +127,6 @@ end
 class Monster
 
 	def initialize(pv = 0, attaque = 0, defense = 0)
-
 		@pv_monster = pv
 		@attaque_monster = attaque
 		@defense_monster = defense
@@ -177,10 +172,9 @@ class Monster
 		else
 			cible.loot
 		end
-
 	end
-
 end
+
 pvMechant = rand(50..100)
 atqMonstre = rand(4..7)
 defMonstre = rand(2..4)
@@ -230,7 +224,7 @@ def combat(heros, monstre)
 			action = gets.chomp
 		end
 		if action == "paf"
-			heros.pif(monstre)
+			heros.paf(monstre)
 		elsif action == "block"
 			heros.bloc
 		elsif action == "super"
