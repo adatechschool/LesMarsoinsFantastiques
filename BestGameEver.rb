@@ -99,6 +99,7 @@ class Personnage
 				@attaque_perso = @attaque_perso*2
 				@defense_perso = @defense_perso*2
 			else
+				# Si tu te trompes dans l'écriture de l'artefact.
 				@pv_perso = @pv_perso / 2
 				@attaque_perso = @attaque_perso / 2
 				@defense_perso = @defense_perso / 2
@@ -270,8 +271,7 @@ def combat(heros, monstre)
 		monstre.drop(heros)
 	elsif current_pv_heros <= 0
 		sleep(0.5)
-
-		puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité".red.bold
+		puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité.".red.bold
 	end
 end
 
@@ -313,7 +313,7 @@ while Heros.getpv > 0
 	sleep(1)
 	system("clear")
 	system("cls")
-	puts "A peine remis de vos émotions, un autre monstre jaillit des ténèbres"
+	puts "A peine remis de vos émotions, un autre monstre jaillit des ténèbres."
 	sleep(1)
 	pv_monstre = rand(75..125)
 	atq_monstre = rand(5..8) + i
