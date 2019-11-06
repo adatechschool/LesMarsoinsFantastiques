@@ -95,7 +95,7 @@ class Personnage
 				@attaque_perso = @attaque_perso*2
 				@defense_perso = @defense_perso*2
 			else
-				# Si tu te trompes dans l'écriture de l'artefact.
+				# Si tu te trompes dans l'écriture de l'artefact, t'es puni.
 				@pv_perso = @pv_perso / 2
 				@attaque_perso = @attaque_perso / 2
 				@defense_perso = @defense_perso / 2
@@ -240,12 +240,16 @@ def combat(heros, monstre)
 		else
 			monstre.paf(heros)
 		end
+
 		heros.reset_defense(defense_base)
 		current_pv_monster = monstre.getpv
+
 		if current_pv_monster < 0
 			current_pv_monster = 0
 		end
+
 		current_pv_heros = heros.getpv
+
 		if current_pv_heros < 0
 			currrent_pv_heros = 0
 		end
