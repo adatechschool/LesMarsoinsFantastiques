@@ -5,14 +5,12 @@ include Win32
 class Personnage
 
 	def initialize(pv, attaque, defense)
-
-	@pv_perso = pv
-	@attaque_perso = attaque
-	@defense_perso = defense
-
+		@pv_perso = pv
+		@attaque_perso = attaque
+		@defense_perso = defense
 	end
 
-	def pif(cible)
+	def paf(cible)
 		cible.blessure(@attaque_perso)
 	end
 
@@ -21,10 +19,9 @@ class Personnage
 		Sound.play("music/block.wav")
 		puts "Vous vous réfugiez courageusement derrière votre bouclier..."
 	end
+
 	def reset_defense(defense)
-
-	@defense_perso = defense
-
+		@defense_perso = defense
 	end
 
 	def super(cible)
@@ -81,7 +78,7 @@ class Personnage
 
 	def choice
 		puts "Bravo aventurier ! Votre adresse au combat vous donne accès à un nouvel équipement, choisissez bien...(baton, epee, arc, cuillere)"
-		sleep(0.7)
+		sleep(1)
 		nouveau_jouet = gets.chomp
 		case nouveau_jouet
 			when "baton"
@@ -104,6 +101,10 @@ class Personnage
 				@pv_perso = @pv_perso/2
 				@attaque_perso = @attaque_perso*2
 				@defense_perso = @defense_perso*2
+			else
+				@pv_perso = @pv_perso/2
+				@attaque_perso = @attaque_perso/2
+				@defense_perso = @defense_perso/2
 		end
 		puts "Un exellent choix, vos stats augmentées sont les suivantes : #{@pv_perso} pv, #{@attaque_perso} attaque et #{@defense_perso} defense, vous êtes prêt pour l'aventure !"
 		sleep(2.5)
@@ -131,7 +132,6 @@ end
 class Monster
 
 	def initialize(pv = 0, attaque = 0, defense = 0)
-
 		@pv_monster = pv
 		@attaque_monster = attaque
 		@defense_monster = defense
@@ -230,7 +230,7 @@ def combat(heros, monstre)
 			action = gets.chomp
 		end
 		if action == "paf"
-			heros.pif(monstre)
+			heros.paf(monstre)
 		elsif action == "block"
 			heros.bloc
 		elsif action == "super"
@@ -275,6 +275,7 @@ def combat(heros, monstre)
 	end
 end
 
+#INTRO
 sleep(1.5)
 puts "Bienvenue Aventurier ! Serez vous à la hauteur du " + "ADA DUNGEON ?".magenta
 Sound.play("music/magic-harp-40.wav")
@@ -283,7 +284,6 @@ blaze = gets.chomp
 puts "#{blaze.upcase} ? " "Un vrai nom de guerrier.re ! J'en frissone. Prêt.e pour l'aventure ?"
 Sound.play("music/magic-harp-2.wav")
 answer = gets.chomp
-
 if answer == "no" || answer == "non"
 	puts "trop tard, il fallait y penser avant..."
 end
@@ -324,6 +324,7 @@ while Heros.getpv > 0
 	end
 end
 
+#FIN
 puts "Quelle aventure épique... vous avez vaincu un total de " + "#{i}".green.bold + " affreux monstres " + "ADA".magenta + " est fière de vous !"
 Sound.play("music/trompette.wav")
 exit
