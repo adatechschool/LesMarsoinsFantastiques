@@ -272,21 +272,19 @@ def combat(heros, monstre)
 end
 
 sleep(1.5)
-Sound.beep(400, 1000)
-puts "Bienvenue Aventurier ! Serez vous à la hauteur du " + "ADA DUNGEON ".magenta + " ?"
-sleep(2)
+puts "Bienvenue Aventurier ! Serez vous à la hauteur du " + "ADA DUNGEON ?".magenta 
+Sound.play("music/sound/magic-harp-40.wav")
 puts "Quel est votre blaze ?"
 blaze = gets.chomp
 puts "#{blaze.upcase} ? " "Un vrai nom de guerrier.re ! J'en frissone. Prêt.e pour l'aventure ?"
+Sound.play("music/sound/magic-harp-2.wav")
 answer = gets.chomp
 
 if answer == "no" || answer == "non"
 	puts "trop tard, il fallait y penser avant..."
 end
-sleep(1)
 puts "En avant " + "#{blaze}".yellow + " , que la force d'Ada soit avec toi !"
-
-sleep(2)
+Sound.play("music/sound/magic-harp-3.wav")
 system("clear")
 
 combat(Heros, Monstre1)
