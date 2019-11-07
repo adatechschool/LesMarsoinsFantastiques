@@ -3,7 +3,7 @@ require 'win32/sound'
 include Win32
 
 class Personnage
-	
+
 	def initialize(pv, attaque, defense)
 
 	@pv_perso = pv
@@ -11,19 +11,19 @@ class Personnage
 	@defense_perso = defense
 
 	end
-	
+
 	def pif(cible)
 		cible.blessure(@attaque_perso)
 	end
 
 	def bloc
 		@defense_perso = @defense_perso*2
-		sleep(0.5)
+		Sound.play("music/block.wav")
 		puts "Vous vous réfugiez courageusement derrière votre bouclier..."
 	end
 	def reset_defense(defense)
 
-	@defense_perso = defense 
+	@defense_perso = defense
 
 	end
 
@@ -85,18 +85,22 @@ class Personnage
 		nouveau_jouet = gets.chomp
 		case nouveau_jouet
 			when "baton"
+				Sound.play("music/Batonsort.wav")
 				@pv_perso = @pv_perso + 20
 				@attaque_perso = @attaque_perso + 5
 				@defense_perso = @defense_perso + 2
 			when "epee"
+				Sound.play("music/epeeFourreau.wav")
 				@attaque_perso = @attaque_perso + 8
 				@defense_perso = @defense_perso + 3
 
 			when "arc"
+				Sound.play("music/arc.wav")
 				@pv_perso = @pv_perso + 10
 				@attaque_perso = @attaque_perso + 10
 
 			when "cuillere"
+				Sound.play("music/cuillere.wav")
 				@pv_perso = @pv_perso/2
 				@attaque_perso = @attaque_perso*2
 				@defense_perso = @defense_perso*2
@@ -108,29 +112,29 @@ class Personnage
 	def loot
 		if @pv_perso <= 30
 			puts "Vous dropez une énorme potion de soin" + " + 30 pv".green
-			sleep(1)
+			Sound.play("music/boire.wav")
 			@pv_perso = @pv_perso + 30
-		else 
+		else
 			random = rand(1..3)
 			if random == 1
 				puts "La chance ! Une potion de robustesse" + " + 1 defense".green
 				@defense_perso = @defense_perso + 1
 			else
-				puts "Vous trouvez une potion du berserker" + " + 1 en attaque".green 
+				puts "Vous trouvez une potion du berserker" + " + 1 en attaque".green
 			end
-			sleep(3)
+			Sound.play("music/boire_paille.wav")
 		end
 	end
 end
 
 
 class Monster
-	
+
 	def initialize(pv = 0, attaque = 0, defense = 0)
 
 		@pv_monster = pv
 		@attaque_monster = attaque
-		@defense_monster = defense 
+		@defense_monster = defense
 	end
 
 	def vlan(cible)
@@ -144,14 +148,14 @@ class Monster
 	def blessure(degats)
 		degats = degats - @defense_monster + rand(-2..2)
 		@pv_monster = @pv_monster - degats
-		sleep(0.5)
+		Sound.play("music/impact_sanglant.wav")
 		puts "PIF ! le vilain monstre perd #{degats} points de vie !".green
 	end
 
 	def megablessure(degats)
 		@pv_monster = @pv_monster - degats + rand(-2..2)
-		sleep(0.5)
-		puts "Dans les dents ! #{degats} points de vie perdus!".green 
+		Sound.play("music/impact_sanglant.wav")
+		puts "Dans les dents ! #{degats} points de vie perdus!".green
 	end
 
 	def getpv
@@ -169,13 +173,13 @@ class Monster
 	def drop(cible)
 		random = rand(1..2)
 		if random == 1
-			puts "les poches du monstre sont vides"
+			puts "Les poches du monstre sont vides"
 		else
 			cible.loot
 		end
-			
+
 	end
-	
+
 end
 pvMechant = rand(50..100)
 atqMonstre = rand(4..7)
@@ -196,18 +200,18 @@ def combat(heros, monstre)
 	atqMonstre = monstre.getatq
 	defMonstre = monstre.getdef
 	if pvMechant < 65
-		sleep(0.5)
+		Sound.play("music/Gobelin_Surprise.wav")
 		puts "Oh ! Un gobelin ! Qu'il est mignon..."
 	elsif pvMechant >= 65 && pvMechant < 80
-		sleep(0.5)
+		Sound.play("music/Orc.wav")
 		puts "Un orc, basique et classique. il crie et il pue..."
 	elsif pvMechant >= 80 && pvMechant < 98
-		sleep(0.5)
+		Sound.play("music/Troll.wav")
 		puts "Un Troll des cavernes ! Vous aimeriez qu'il rajuste son pagne... il faut corriger ce goujat"
 	elsif pvMechant > 97 && pvMechant < 120
 		puts "Une hydre des ténèbres, original."
 	else
-		sleep(0.5)
+		Sound.play("music/Boss_final.wav")
 		puts "Le boss final, tout simplement. Fuyez pauvre fou..."
 	end
 
@@ -219,13 +223,13 @@ def combat(heros, monstre)
 	current_pv_monster = monstre.getpv
 	current_pv_heros = heros.getpv
 
-	while current_pv_monster > 0 && current_pv_heros > 0 
+	while current_pv_monster > 0 && current_pv_heros > 0
 		puts "Quelle action choisir ?" + " (paf, block, super)".light_blue
 		action = gets.chomp
 		until action == "paf" || action == "block" || action == "super"
 			action = gets.chomp
 		end
-		if action == "paf" 
+		if action == "paf"
 			heros.pif(monstre)
 		elsif action == "block"
 			heros.bloc
@@ -251,7 +255,7 @@ def combat(heros, monstre)
 		if current_pv_heros < 0
 			currrent_pv_heros = 0
 		end
-	
+
 		puts "Il vous reste" + " #{current_pv_heros}".green + " points de vie" + ", le monstre en a " + "#{current_pv_monster}".green
 		sleep(0.5)
 		if current_pv_monster > 0
@@ -260,10 +264,10 @@ def combat(heros, monstre)
 		sleep(0.5)
 	end
 
-	if current_pv_monster <= 0 
+	if current_pv_monster <= 0
 		sleep(0.5)
 		puts "Gloire et honneur ! Vos ancètres sont fiers de vous...".green.bold
-		sleep(1.5)
+		Sound.play("music/trompette.wav")
 		monstre.drop(heros)
 	elsif current_pv_heros <= 0
 		sleep(0.5)
@@ -272,19 +276,19 @@ def combat(heros, monstre)
 end
 
 sleep(1.5)
-puts "Bienvenue Aventurier ! Serez vous à la hauteur du " + "ADA DUNGEON ?".magenta 
-Sound.play("music/sound/magic-harp-40.wav")
+puts "Bienvenue Aventurier ! Serez vous à la hauteur du " + "ADA DUNGEON ?".magenta
+Sound.play("music/magic-harp-40.wav")
 puts "Quel est votre blaze ?"
 blaze = gets.chomp
 puts "#{blaze.upcase} ? " "Un vrai nom de guerrier.re ! J'en frissone. Prêt.e pour l'aventure ?"
-Sound.play("music/sound/magic-harp-2.wav")
+Sound.play("music/magic-harp-2.wav")
 answer = gets.chomp
 
 if answer == "no" || answer == "non"
 	puts "trop tard, il fallait y penser avant..."
 end
 puts "En avant " + "#{blaze}".yellow + " , que la force d'Ada soit avec toi !"
-Sound.play("music/sound/magic-harp-3.wav")
+Sound.play("music/MarioHereWeGo.wav")
 system("clear")
 
 combat(Heros, Monstre1)
@@ -311,9 +315,9 @@ while Heros.getpv > 0
 	puts "A peine remis de vos émotions, un autre monstre jaillit des ténèbres"
 	sleep(1)
 	pv_monstre = rand(75..125)
-	atq_monstre = rand(5..8) + i 
+	atq_monstre = rand(5..8) + i
 	def_monstre = rand(3..6)
-	Monstre = Monster.new(pv_monstre, atq_monstre, def_monstre)	
+	Monstre = Monster.new(pv_monstre, atq_monstre, def_monstre)
 	combat(Heros, Monstre)
 	if Heros.getpv > 0
 		Heros.soin
@@ -321,5 +325,5 @@ while Heros.getpv > 0
 end
 
 puts "Quelle aventure épique... vous avez vaincu un total de " + "#{i}".green.bold + " affreux monstres " + "ADA".magenta + " est fière de vous !"
-sleep(4)
+Sound.play("music/trompette.wav")
 exit
